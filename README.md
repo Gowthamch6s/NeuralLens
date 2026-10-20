@@ -1,89 +1,216 @@
-# NeuralLens — NLP Lab 01: Tokenization
+# NeuralLens
+### An Interactive NLP, Computer Vision & Multimodal AI Learning Platform
 
-An intentionally small, testable start to an educational NLP + computer vision platform.
-This version implements **one real, transparent baseline tokenizer**, a FastAPI JSON endpoint, and a browser playground. It does not yet use a trained NLP model or computer vision.
+**14 learning labs · 60 passing automated tests · Python · FastAPI · PyTorch · Hugging Face**
 
-## Setup in VS Code
+NeuralLens is an interactive educational platform designed to make machine learning concepts more transparent.
 
-Requirements: Python 3.10 or newer.
+Instead of treating AI models as black boxes, NeuralLens allows users to experiment with inputs, examine predictions, compare models, visualize representations, and investigate failure cases.
 
-### Windows PowerShell
+**Repository:** https://github.com/Gowthamch6s/NeuralLens
+
+## Why I built this
+
+I wanted to understand how AI models work beyond simply calling inference APIs.
+
+NeuralLens started as a rule-based NLP tokenization exercise and expanded into a collection of 14 interactive experiments spanning language processing, image understanding, and multimodal AI.
+
+The focus is on experimentation, measurable behavior, and explaining the limitations of model outputs.
+
+## Features
+
+### Natural Language Processing
+
+| Lab | Experiment | Key concepts |
+|---|---|---|
+| 01 | Rule-Based Tokenization | Regex, tokens, character offsets |
+| 02 | BERT WordPiece Tokenization | Subwords, vocabulary IDs, special tokens |
+| 03 | Contextual Embeddings | BERT embeddings, cosine similarity |
+| 04 | Interactive Embedding Comparison | Context-dependent word representations |
+| 05 | Embedding Space Explorer | PCA, dimensionality reduction |
+| 06 | NLP Challenge Mode | Interactive learning and knowledge checks |
+| 07 | Sentiment Detective | TF-IDF, logistic regression, RoBERTa |
+| 08 | Model Evaluation Lab | Accuracy, precision, recall, F1, confusion matrices |
+| 09 | Explainability Lab | Linear feature contributions, word-removal perturbations |
+
+### Computer Vision & Multimodal AI
+
+| Lab | Experiment | Key concepts |
+|---|---|---|
+| 10 | Image Anatomy Lab | RGB channels, grayscale, pixels, resizing |
+| 11 | Image Classification | ResNet-18, ImageNet classes, preprocessing |
+| 12 | Object Detection | Faster R-CNN, bounding boxes, thresholds |
+| 13 | Optical Character Recognition | Tesseract, text extraction |
+| 14 | Visual Question Answering | BLIP, image-and-text inference |
+
+## Technology Stack
+
+**Backend:** Python, FastAPI, Pydantic
+
+**Machine Learning:** PyTorch, Torchvision, Hugging Face Transformers, scikit-learn, NumPy
+
+**Computer Vision:** Pillow, pretrained ResNet-18, Faster R-CNN, Tesseract OCR
+
+**Multimodal AI:** BLIP visual question answering
+
+**Frontend:** Browser-based interactive interface using HTML, CSS, and JavaScript
+
+**Testing:** Pytest and FastAPI endpoint tests
+
+## System Architecture
+
+```text
+                  User / Web Browser
+                          |
+                Interactive Lab UI
+                          |
+                     FastAPI
+                          |
+         +----------------+----------------+
+         |                |                |
+      NLP Labs        Vision Labs     Multimodal Lab
+         |                |                |
+  BERT / RoBERTa     ResNet / R-CNN        BLIP
+  TF-IDF / PCA       Pillow / OCR     Image + Question
+         |                |                |
+         +----------------+----------------+
+                          |
+                Predictions / Analysis
+                          |
+              Interactive Visualizations
+```
+
+Models are loaded locally or downloaded from their upstream model sources when first required. Individual experiments may have additional dependencies.
+
+## Getting Started
+
+### Requirements
+
+- Windows with Python 3.12
+- Internet access for initial model downloads
+- Sufficient memory and disk space for pretrained models
+- Tesseract installed separately to use OCR
+
+### Installation
+
+Clone the repository:
 
 ```powershell
-cd neuralens-starter
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m pytest -q
-python -m uvicorn neuralens.api:app --reload
+git clone https://github.com/Gowthamch6s/NeuralLens.git
+cd NeuralLens
 ```
 
-If the activation script is blocked, use the environment's Python directly: `.venv\Scripts\python.exe -m pip install -r requirements.txt` (remove the unusual separator if copied from a viewer), then `.venv\Scripts\python.exe -m pytest -q` and `.venv\Scripts\python.exe -m uvicorn neuralens.api:app --reload`.
-
-### macOS / Linux
-
-```bash
-cd neuralens-starter
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python -m pytest -q
-python -m uvicorn neuralens.api:app --reload
-```
-
-Visit **http://127.0.0.1:8000** for the visual lab and **http://127.0.0.1:8000/docs** for interactive API documentation.
-
-## What to learn
-
-- **Token**: a unit created when text is split into pieces.
-- **Offset**: the start/end character positions of each piece in the original string.
-- **Regex tokenizer**: a hand-written set of rules, not an NLP model.
-- **Subword tokenizer**: a model-specific algorithm used by BERT and many other transformers; we'll add it in Lab 02.
-
-## Test ideas
-
-| Input | Expected tokens | Lesson |
-| --- | --- | --- |
-| `I love NLP!` | `I`, `love`, `NLP`, `!` | Baseline |
-| `I can't stop.` | `I`, `can't`, `stop`, `.` | Apostrophes |
-| `Café 😊` | `Café`, `😊` | Unicode |
-| `Wow... really?!` | `Wow`, `.`, `.`, `.`, `really`, `?`, `!` | Punctuation |
-| `   ` | none | Empty input |
-
-Try to predict the output before clicking the button. Then find `TOKEN_PATTERN` in `neuralens/tokenizer.py` and change it. Run tests again to see whether your rules still behave as expected.
-
-## HTTP example
-
-```bash
-curl -X POST http://127.0.0.1:8000/api/tokenize -H "Content-Type: application/json" -d '{"text":"I love NLP!"}'
-```
-
-## Upcoming labs
-
-1. Word tokenizer vs. BERT subword tokenizer and token IDs
-2. TF-IDF + cosine similarity
-3. Sentiment baseline and transformer comparison
-4. Image preprocessing, classification and OCR
-5. Visual question answering with image + text
-
-Keep experiment datasets and reported metrics reproducible. Never claim evaluation results before running the tests.
-
-## Experiment 02: side-by-side BERT WordPiece comparison
-
-This version retains Experiment 01's `/api/tokenize` endpoint and adds `/api/tokenize/bert`.
-The browser root now opens the Experiment 02 interface.
-
-**Windows PowerShell** (inside the extracted `neuralens-starter` directory):
+Create the virtual environment:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m uvicorn neuralens.api:app --reload
+py -3.12 -m venv .venv312
 ```
 
-If `.venv` is not present in the new folder, run `py -m venv .venv` first.
-Open `http://127.0.0.1:8000`.
+Install dependencies:
 
-The first BERT comparison downloads the tokenizer files from Hugging Face. An internet connection is necessary on first use, but you do not need to download BERT's full neural-network model weights for tokenization. Subsequent runs can use the cache.
+```powershell
+.\.venv312\Scripts\python.exe -m pip install -r requirements.txt
+```
 
-The BERT test is deterministic and mocked for fast offline testing; it verifies the encoding-to-display logic but **does not claim a verified live download or specific vocabulary outputs**. Observe and record real tokens and IDs in the app.
+Install CPU-compatible PyTorch and Torchvision if needed:
+
+```powershell
+.\.venv312\Scripts\python.exe -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+
+Run automated tests:
+
+```powershell
+.\.venv312\Scripts\python.exe -m pytest -q tests
+```
+
+Start the server:
+
+```powershell
+.\.venv312\Scripts\python.exe -m uvicorn neuralens.api:app --host 127.0.0.1 --port 8002
+```
+
+Open:
+
+**http://127.0.0.1:8002**
+
+API documentation:
+
+**http://127.0.0.1:8002/docs**
+
+## Testing & Validation
+
+The latest local development check reported:
+
+```text
+60 passed in 2.78s
+```
+
+This verifies the automated test suite in the developer's environment. Some model integration tests use mocked inference results, so passing tests should not be interpreted as independent validation of every pretrained model.
+
+Selected experiments have also been tested manually with live inference.
+
+### Example: Contextual Embeddings
+
+Using BERT, experiments showed that the same word can have different contextual representations.
+
+Observed cosine similarities included:
+
+- Financial context versus another financial context: **0.9332**
+- Financial context versus river-related context: **0.5412**
+
+These are demonstration results for specific input sentences, not general benchmarks.
+
+### Example: Sentiment Classification
+
+On a small nine-example educational holdout:
+
+- TF-IDF + Logistic Regression: **8/9 correct**
+- Pretrained RoBERTa: **9/9 correct**
+
+The dataset is too small to establish reliable real-world accuracy. The experiment is intended to demonstrate evaluation methods and failure analysis.
+
+## Model Limitations
+
+NeuralLens is an educational project and development MVP, not a production decision-making system.
+
+Important considerations:
+
+- Classification scores are not necessarily calibrated probabilities.
+- Pretrained models may fail on unfamiliar images, ambiguous inputs, or distribution shifts.
+- OCR performance depends on image quality and text characteristics.
+- Object detection is limited to the model's supported categories.
+- Visual question answering models may produce plausible but incorrect answers.
+- Explanations based on removing words are perturbation measurements, not definitive causal explanations.
+- Small teaching datasets should not be treated as production benchmarks.
+
+## Project Status
+
+**Current:** 14 interactive experiments implemented and the automated test suite passing locally.
+
+**In progress:** Broader live inference validation, improved frontend navigation, accessibility review, larger evaluation datasets, and public deployment.
+
+## Roadmap
+
+- [x] NLP experiments and contextual embeddings
+- [x] Sentiment comparison and explainability
+- [x] Image preprocessing and classification labs
+- [x] Object detection and OCR modules
+- [x] Visual question answering module
+- [x] Automated regression test suite
+- [ ] Independent model evaluation benchmarks
+- [ ] Improved application dashboard and accessibility testing
+- [ ] CI testing using GitHub Actions
+- [ ] Public hosted demonstration
+
+## Author
+
+**Gowtham**
+
+AI Engineering | Machine Learning | NLP | Computer Vision
+
+GitHub: https://github.com/Gowthamch6s
+
+---
+
+*NeuralLens is a learning-in-public project focused on understanding AI systems through experiments rather than treating predictions as unquestionable answers.*
