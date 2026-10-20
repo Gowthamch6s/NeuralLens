@@ -7,6 +7,40 @@ NeuralLens is an interactive educational platform designed to make machine learn
 
 Instead of treating AI models as black boxes, NeuralLens allows users to experiment with inputs, examine predictions, compare models, visualize representations, and investigate failure cases.
 
+## Application Screenshots
+
+A selection of experiments running locally in NeuralLens.
+
+### Contextual Embeddings
+Exploring how BERT represents the same word differently depending on its context.
+
+![BERT Embedding Explorer](docs/screenshots/bert-embeddings.png)
+
+### Sentiment Analysis
+Comparing a TF-IDF baseline against pretrained RoBERTa predictions.
+
+![Sentiment Analysis](docs/screenshots/sentiment-analysis.png)
+
+### Model Explainability
+Inspecting TF-IDF feature contributions and transformer word-removal sensitivity.
+
+![Model Explainability](docs/screenshots/model-explainability.png)
+
+### Image Anatomy
+Visualizing RGB channels, grayscale conversion, and pixel measurements.
+
+![Image Anatomy](docs/screenshots/image-anatomy.png)
+
+### Object Detection
+Identifying and locating objects using bounding boxes.
+
+![Object Detection](docs/screenshots/object-detection.png)
+
+### Multimodal Visual Question Answering
+Asking natural-language questions about uploaded images.
+
+![Visual Question Answering](docs/screenshots/visual-question-answering.png)
+
 **Repository:** https://github.com/Gowthamch6s/NeuralLens
 
 ## Why I built this
