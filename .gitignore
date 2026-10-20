@@ -35,3 +35,8 @@ Thumbs.db
 models/
 checkpoints/
 outputs/
+
+# Historical NeuralLens snapshots
+backup-before-exp08/
+backup-exp09/
+neuralens-starter/
